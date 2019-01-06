@@ -35,15 +35,24 @@ class ShareController extends Controller
             'share_price'=> 'required',
             'share_qty' => 'required',
             'ip' => 'required',
-            'url' => 'required'
+            'url' => 'required',
+            'filename' => 'required'
           ]);
+          $filename = $request->file('filename');
+          $name = $filename->getClientOriginalName();
+          $dist = 'uploads/';
+          $nameExp = explode('.', $name);
+          $nameActExp = strtolower(end($nameExp));
+          $newName = uniqid('', true).'.'.$nameActExp;
+          $upload = $filename->move($dist, $newName);
+
           $share = new Share([
             'share_name' => $request->get('share_name'),
             'share_price'=> $request->get('share_price'),
             'share_qty'=> $request->get('share_qty'),
             'ip' => $request->get('ip'),
-            'url' => $request->get('url')
-
+            'url' => $request->get('url'),
+            'filename' => $dist.$newName
           ]);
           $share->save();
           return redirect('/')->with('success', 'Stock has been added');
@@ -63,14 +72,24 @@ class ShareController extends Controller
     {
         $request->validate([
             'share_name'=>'required',
-            'share_price'=> 'required|integer',
-            'share_qty' => 'required|integer',
+            'share_price'=> 'required',
+            'share_qty' => 'required',
             'ip' => 'required',
             'url' => 'required',
-            'status' => 'required'
-
+            'status' => 'required',
+            'filename' => 'required'
 
           ]);
+
+        $filename = $request->file('filename');
+        $name = $filename->getClientOriginalName();
+        $dist = 'uploads/';
+        $nameExp = explode('.', $name);
+        $nameActExp = strtolower(end($nameExp));
+        $newName = uniqid('', true).'.'.$nameActExp;
+        $upload = $filename->move($dist, $newName);
+
+
 
           $share = Share::find($id);
           $share->share_name = $request->get('share_name');
@@ -79,9 +98,10 @@ class ShareController extends Controller
           $share->ip = $request->get('ip');
           $share->url = $request->get('url');
           $share->status = $request->get('status');
+          $share->filename = $dist.$newName;
           $share->save();
           session()->flash('status', 'Task was successful!');
-          return redirect('/shares')->with('success', 'Stock has been updated');
+          return redirect('/shares')->with('success'    , 'Stock has been updated');
     }
     public function destroy($id)
     {

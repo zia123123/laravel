@@ -29,6 +29,7 @@
           <td>ip target</td>
           <td>url target</td>
           <td>Status</td>
+          <td>photo</td>
           <td colspan="2">Action</td>
         </tr>
     </thead>
@@ -41,6 +42,7 @@
             <td>{{ $share->ip}}</td>
             <td>{{$share->url}}</td>
             <td>{{$share->status}}</td>
+            <td><img style="width: 30px;" src="{{URL::asset($share->filename)}}"></td>
             <td><a href="{{ route('shares.edit',$share->id)}}" class="btn btn-primary">Edit</a></td>
             <td>
              <td><a href="{{ route('shares.show',$share->id)}}" class="btn btn-success">show</a></td>

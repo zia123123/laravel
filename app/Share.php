@@ -12,6 +12,7 @@ class Share extends Model
         'share_qty',
         'url',
         'ip',
-        'status'
+        'status',
+        'filename'
       ];
 }

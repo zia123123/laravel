@@ -20,7 +20,7 @@
         </ul>
       </div><br />
     @endif
-      <form method="post" action="{{ route('shares.update', $share->id) }}">
+      <form method="post" action="{{ route('shares.update', $share->id) }}" enctype="multipart/form-data" >
         @method('PATCH')
         @csrf
         <div class="form-group">
@@ -53,6 +53,9 @@
 
               </select>
           </div>
+          <div>
+            <input id="minute_length" type="file" name="filename" required="">
+                </div>
         <div class="form-group">
             <label for="quantity">Masukan Url anda :</label>
             <input type="text" class="form-control" name="url" value={{ $share->url }} />

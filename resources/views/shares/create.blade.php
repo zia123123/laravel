@@ -20,7 +20,7 @@
         </ul>
       </div><br />
     @endif
-      <form method="post" action="{{ route('shares.store') }}">
+      <form method="post" action="{{ route('shares.store') }}" enctype="multipart/form-data">
           <div class="form-group">
               @csrf
               <label for="name">Share Name  :</label>
@@ -42,6 +42,9 @@
             <label for="url">Masukan Url WEB anda:</label>
             <input type="text" class="form-control" name="url"/>
         </div>
+        <div>
+            <input id="minute_length" type="file" name="filename" required="">
+                </div>
           <button type="submit" class="btn btn-primary">Add</button>
       </form>
   </div>
